@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProkASM Pipeline Flowchart</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>ProkASM Pipeline: Detailed Workflow</h1>
+    <div class="chart-container">
+        <div class="mermaid">
+            flowchart TD
+            %% Styles
+            classDef input fill:#e1f5fe,stroke:#0277bd,stroke-width:2px;
+            classDef step fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+            classDef decision fill:#fff9c4,stroke:#fbc02d,stroke-width:2px,stroke-dasharray: 5 5;
+            classDef final fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+
+            %% Input Section
+            subgraph PREP ["1. Input Processing"]
+            IN["Samplesheet<br />(FASTQ / BAM)"]:::input --> VALID{"Validate<br />Schema"}:::decision
+            VALID --> MERGE["Merge & Convert<br />(CAT / BAM2FQ)"]:::step
+            end
+
+            PREP --> MODE{"Data Type?"}:::decision
+
+            %% QC Section (Parallel)
+            subgraph QC ["2. QC & Trimming"]
+            direction TB
+            MODE -->|Illumina/Hybrid| SHORT_QC["Short Read QC<br />(FastQC + fastp / Trimmomatic / Trim Galore)"]:::step
+            MODE -->|Long/Hybrid| LONG_QC["Long Read QC<br />(NanoPlot)"]:::step
+            end
+
+            %% Assembly Section
+            subgraph ASM ["3. Assembly"]
+            SHORT_QC --> ILL_ASM["Short Read Assembly<br />(MEGAHIT or MetaSPAdes)"]:::step
+            LONG_QC --> PB_ASM["PacBio Assembly<br />(Hifiasm or Flye)"]:::step
+            LONG_QC --> ONT_ASM["Nanopore Assembly<br />(Flye)"]:::step
+            SHORT_QC & LONG_QC --> HYB_ASM["Hybrid Assembly<br />(Unicycler)"]:::step
+            end
+
+            %% Post-Processing
+            subgraph POST ["4. Post-Processing"]
+            ILL_ASM & PB_ASM & ONT_ASM & HYB_ASM --> CIRC["Reorientation<br />(DNAapler or Circlator)"]:::step
+            CIRC --> BUSCO["Quality Assessment<br />(BUSCO)"]:::step
+            end
+
+            %% Output
+            BUSCO --> REPORT["Final Report<br />(MultiQC / HTML Reports)"]:::final
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+</body>
+
+</html>

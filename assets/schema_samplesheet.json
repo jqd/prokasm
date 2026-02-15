@@ -1,0 +1,36 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/your-repo/pipelines/v2/master/assets/schema_samplesheet.json",
+    "title": "Pipeline samplesheet schema",
+    "description": "Schema for validating pipeline samplesheet with support for illumina, pacbio, nanopore, and hybrid data",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "required": ["sample_id"],
+        "properties": {
+            "sample_id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_-]+$",
+                "errorMessage": "Sample ID must contain only alphanumeric characters, underscores, or hyphens"
+            },
+            "R1": {
+                "type": "string",
+                "format": "file-path",
+                "pattern": "^$|^\\S+\\.(fq|fastq|fq\\.gz|fastq\\.gz)$",
+                "errorMessage": "R1 must be empty or a valid FASTQ file (.fq, .fastq, .fq.gz, .fastq.gz)"
+            },
+            "R2": {
+                "type": "string",
+                "format": "file-path",
+                "pattern": "^$|^\\S+\\.(fq|fastq|fq\\.gz|fastq\\.gz)$",
+                "errorMessage": "R2 must be empty or a valid FASTQ file (.fq, .fastq, .fq.gz, .fastq.gz)"
+            },
+            "LReads": {
+                "type": "string",
+                "format": "file-path",
+                "pattern": "^$|^\\S+\\.(bam|fq|fastq|fq\\.gz|fastq\\.gz)$",
+                "errorMessage": "LReads must be empty or a valid BAM/FASTQ file (.bam, .fq, .fastq, .fq.gz, .fastq.gz)"
+            }
+        }
+    }
+}

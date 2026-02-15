@@ -1,0 +1,23 @@
+
+Software versions:
+FastQC v0.12.1
+NanoPlot 1.46.2
+multiqc, version 1.32
+fastp 1.0.1
+Picked up _JAVA_OPTIONS: -Djava.io.tmpdir=/lustre_scratch/java_tmp -XX:ParallelGCThreads=1 -XX:ConcGCThreads=1
+
+MEGAHIT v1.2.9
+SPAdes genome assembler v4.2.0
+0.25.0-r726
+2.9.6-b1802
+Unicycler v0.5.1
+dnaapler, version 0.8.1
+1.5.5
+BUSCO 6.0.0
+2.30-r1287
+samtools 1.22.1
+
+Trim Galore: 
+Trim Galore: 0.6.10
+Trimmomatic: 0.40
+1.5.5

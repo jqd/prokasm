@@ -1,0 +1,739 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/your-repo/pipelines/v2/master/nextflow_schema.json",
+    "title": "ProkASM - Prokaryotic Genome Assembly Pipeline",
+    "description": "Modular Nextflow DSL2 pipeline for de novo genome assembly from Illumina, PacBio, and Nanopore sequencing data",
+    "type": "object",
+    "required": [
+        "data_type",
+        "samplesheet",
+        "outdir"
+    ],
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "data_type": {
+                        "const": "hybrid"
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "longread_type",
+                    "longread_format"
+                ],
+                "properties": {
+                    "longread_type": {
+                        "enum": [
+                            "pacbio",
+                            "nanopore"
+                        ]
+                    },
+                    "longread_format": {
+                        "enum": [
+                            "bam",
+                            "fastq"
+                        ]
+                    }
+                },
+                "errorMessage": {
+                    "required": "For hybrid assemblies (--data_type hybrid), you MUST provide both --longread_type (pacbio or nanopore) and --longread_format (bam or fastq)",
+                    "properties": {
+                        "longread_type": "--longread_type must be either 'pacbio' or 'nanopore' for hybrid assemblies",
+                        "longread_format": "--longread_format must be either 'bam' or 'fastq' for hybrid assemblies"
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "data_type": {
+                        "const": "nanopore"
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "flye_mode",
+                    "longread_format"
+                ],
+                "errorMessage": {
+                    "required": "For Nanopore assemblies (--data_type nanopore), --flye_mode and --longread_format are REQUIRED. Options: flye_mode: nano-raw/nano-corr/nano-hq, longread_format: bam/fastq"
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "data_type": {
+                        "const": "pacbio"
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "longread_format"
+                ],
+                "errorMessage": {
+                    "required": "For PacBio assemblies (--data_type pacbio), --longread_format is REQUIRED. Options: bam or fastq"
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "data_type": {
+                        "const": "pacbio"
+                    },
+                    "pacbio_assembler": {
+                        "const": "flye"
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "flye_mode"
+                ],
+                "errorMessage": {
+                    "required": "For PacBio assemblies using Flye (--data_type pacbio --pacbio_assembler flye), --flye_mode is REQUIRED. Options: pacbio-raw, pacbio-corr, pacbio-hifi"
+                }
+            }
+        }
+    ],
+    "definitions": {
+        "input_output_options": {
+            "title": "Input/Output Options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "properties": {
+                "data_type": {
+                    "type": "string",
+                    "enum": [
+                        "illumina",
+                        "pacbio",
+                        "nanopore",
+                        "hybrid"
+                    ],
+                    "default": "illumina",
+                    "description": "Type of sequencing data to process",
+                    "help_text": "Single type: 'illumina', 'pacbio', 'nanopore' or 'hybrid'",
+                    "fa_icon": "fas fa-dna"
+                },
+                "samplesheet": {
+                    "type": "string",
+                    "format": "file-path",
+                    "default": "./samplesheet.csv",
+                    "description": "Path to CSV file containing sample information and read paths",
+                    "help_text": "Format: sample_id,R1,R2,LReads. Fill columns based on data_type.",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "default": "./results",
+                    "description": "Output directory for all results",
+                    "fa_icon": "fas fa-folder-open"
+                }
+            }
+        },
+        "platform_options": {
+            "title": "Platform-Specific Options",
+            "type": "object",
+            "fa_icon": "fas fa-cogs",
+            "properties": {
+                "longread_type": {
+                    "enum": [
+                        "pacbio",
+                        "nanopore",
+                        null
+                    ],
+                    "default": null,
+                    "description": "Platform of long reads for hybrid assemblies - MANDATORY when --data_type hybrid",
+                    "help_text": "Specify the long read platform: 'pacbio' or 'nanopore'. Leave null for non-hybrid.",
+                    "fa_icon": "fas fa-dna"
+                },
+                "longread_format": {
+                    "enum": [
+                        "bam",
+                        "fastq",
+                        null
+                    ],
+                    "default": null,
+                    "description": "File format of long reads (PacBio, Nanopore, Hybrid)",
+                    "help_text": "Specify 'bam' (will be converted if needed) or 'fastq'. Mandatory for hybrid.",
+                    "fa_icon": "fas fa-file"
+                }
+            }
+        },
+        "tool_selection": {
+            "title": "Tool Selection",
+            "type": "object",
+            "fa_icon": "fas fa-wrench",
+            "properties": {
+                "illumina_trimmer": {
+                    "type": "string",
+                    "enum": [
+                        "fastp",
+                        "trimmomatic",
+                        "trimgalore"
+                    ],
+                    "default": "fastp",
+                    "description": "Tool to use for trimming Illumina reads",
+                    "help_text": "fastp: Fast and flexible, trimmomatic: Java-based, trimgalore: Cutadapt wrapper"
+                },
+                "illumina_assembler": {
+                    "type": "string",
+                    "enum": [
+                        "megahit",
+                        "metaspades"
+                    ],
+                    "default": "megahit",
+                    "description": "Assembler to use for Illumina short-read data",
+                    "help_text": "megahit: Fast/memory-efficient, metaspades: Better for complex/metagenomic data"
+                },
+                "pacbio_assembler": {
+                    "type": "string",
+                    "enum": [
+                        "hifiasm",
+                        "flye"
+                    ],
+                    "default": "hifiasm",
+                    "description": "Assembler to use for PacBio long-read data",
+                    "help_text": "hifiasm: Optimized for HiFi reads, flye: Works with raw/corrected/HiFi"
+                },
+                "flye_mode": {
+                    "enum": [
+                        "nano-raw",
+                        "nano-corr",
+                        "nano-hq",
+                        "pacbio-raw",
+                        "pacbio-corr",
+                        "pacbio-hifi",
+                        null
+                    ],
+                    "default": null,
+                    "description": "Flye assembly mode (REQUIRED when using Flye assembler)",
+                    "help_text": "nano-raw/corr/hq for Nanopore, pacbio-raw/corr/hifi for PacBio"
+                },
+                "reorientation_tool": {
+                    "type": "string",
+                    "enum": [
+                        "dnaapler",
+                        "circlator"
+                    ],
+                    "default": "dnaapler",
+                    "description": "Tool for contig reorientation",
+                    "help_text": "dnaapler: Modern tool, circlator: Legacy tool"
+                }
+            }
+        },
+        "skip_options": {
+            "title": "Skip Options",
+            "type": "object",
+            "fa_icon": "fas fa-forward",
+            "description": "Options to skip specific pipeline steps",
+            "properties": {
+                "skip_qc": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip QC steps (FastQC/NanoPlot)",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_trimming": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip trimming for Illumina reads",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_polish": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip polishing step",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_reorientation": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip contig reorientation",
+                    "fa_icon": "fas fa-fast-forward"
+                },
+                "skip_busco": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Skip BUSCO assessment",
+                    "fa_icon": "fas fa-fast-forward"
+                }
+            }
+        },
+        "tool_parameters": {
+            "title": "Tool-Specific Parameters",
+            "type": "object",
+            "fa_icon": "fas fa-sliders-h",
+            "properties": {
+                "trimgalore_quality": {
+                    "type": "integer",
+                    "default": 20,
+                    "minimum": 0,
+                    "maximum": 40,
+                    "description": "Phred quality score threshold for Trim Galore",
+                    "fa_icon": "fas fa-check-circle"
+                },
+                "trimgalore_stringency": {
+                    "type": "integer",
+                    "default": 1,
+                    "minimum": 1,
+                    "maximum": 10,
+                    "description": "Overlap with adapter sequence required to trim (Trim Galore)",
+                    "fa_icon": "fas fa-ruler"
+                },
+                "metaspades_k": {
+                    "type": "string",
+                    "default": "auto",
+                    "description": "K-mer sizes for metaSPAdes assembly (comma-separated or 'auto')",
+                    "help_text": "Example: '21,33,55' or 'auto' for automatic selection"
+                },
+                "unicycler_mode": {
+                    "type": "string",
+                    "enum": [
+                        "conservative",
+                        "normal",
+                        "bold"
+                    ],
+                    "default": "normal",
+                    "description": "Unicycler assembly mode (hybrid assembly)",
+                    "help_text": "conservative: accurate, normal: balanced, bold: longer contigs"
+                },
+                "unicycler_min_fasta_length": {
+                    "type": "integer",
+                    "default": 100,
+                    "minimum": 1,
+                    "description": "Minimum contig length to output (Unicycler)"
+                },
+                "circlator_min_id": {
+                    "type": "integer",
+                    "default": 70,
+                    "minimum": 50,
+                    "maximum": 100,
+                    "description": "Minimum percent identity for circularization (Circlator)"
+                },
+                "busco_mode": {
+                    "type": "string",
+                    "enum": [
+                        "genome",
+                        "proteins",
+                        "transcriptome"
+                    ],
+                    "default": "genome",
+                    "description": "BUSCO assessment mode"
+                },
+                "busco_lineage": {
+                    "default": null,
+                    "description": "BUSCO lineage database (e.g., 'bacteria_odb10')",
+                    "help_text": "If not specified, BUSCO will auto-detect lineage"
+                },
+                "hifiasm_k": {
+                    "type": "integer",
+                    "default": 51,
+                    "minimum": 1,
+                    "maximum": 63,
+                    "description": "K-mer length for hifiasm (must be less than 64)"
+                },
+                "hifiasm_a": {
+                    "type": "integer",
+                    "default": 4,
+                    "minimum": 1,
+                    "description": "Number of rounds of assembly cleaning (hifiasm)"
+                }
+            }
+        },
+        "extra_tool_options": {
+            "title": "Extra Tool Options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Additional command-line options for each tool",
+            "properties": {
+                "fastp_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for fastp",
+                    "help_text": "Example: '--cut_front --cut_tail -l 50'"
+                },
+                "trimgalore_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for Trim Galore",
+                    "help_text": "Example: '--paired --illumina --clip_R1 5'"
+                },
+                "trimmomatic_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for Trimmomatic",
+                    "help_text": "Example: 'ILLUMINACLIP:adapters.fa:2:30:10 LEADING:3'"
+                },
+                "spades_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for metaSPAdes",
+                    "help_text": "Example: '--careful -k 21,33,55,77'"
+                },
+                "megahit_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for MEGAHIT",
+                    "help_text": "Example: '--min-contig-len 500 --k-min 21'"
+                },
+                "fastqc_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for FastQC",
+                    "help_text": "Example: '--nogroup --threads 4'"
+                },
+                "nanoplot_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for NanoPlot",
+                    "help_text": "Example: '--plots dot --legacy hex'"
+                },
+                "hifiasm_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for hifiasm",
+                    "help_text": "Example: '-l 3 --hom-cov 50'"
+                },
+                "flye_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for Flye",
+                    "help_text": "Example: '--genome-size 5m --asm-coverage 50'"
+                },
+                "busco_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for BUSCO",
+                    "help_text": "Example: '--offline --lineage_dataset bacteria_odb10'"
+                },
+                "circlator_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for Circlator",
+                    "help_text": "Example: '--merge_min_id 85'"
+                },
+                "dnaapler_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for dnaapler",
+                    "help_text": "Example: '--evalue 1e-10 --mode all'"
+                },
+                "unicycler_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for unicycler",
+                    "help_text": "Example: '--no_correct'"
+                },
+                "filtlong_opts": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Additional command-line options for Filtlong",
+                    "help_text": "Example: '--min_length 1000 --keep_percent 90'"
+                }
+            }
+        },
+        "generic_options": {
+            "title": "Generic Options",
+            "type": "object",
+            "fa_icon": "fas fa-cog",
+            "properties": {
+                "help": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Display comprehensive help message and exit",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "showHidden": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Show all hidden parameters",
+                    "hidden": true
+                }
+            }
+        }
+    },
+    "properties": {
+        "help": {
+            "type": "boolean",
+            "default": false,
+            "description": "Display comprehensive help message and exit",
+            "fa_icon": "fas fa-question-circle"
+        },
+        "showHidden": {
+            "type": "boolean",
+            "default": false,
+            "description": "Show all hidden parameters",
+            "hidden": true
+        },
+        "data_type": {
+            "type": "string",
+            "enum": [
+                "illumina",
+                "pacbio",
+                "nanopore",
+                "hybrid"
+            ],
+            "default": "illumina",
+            "description": "Type of sequencing data to process",
+            "help_text": "Single type: 'illumina', 'pacbio', 'nanopore' or 'hybrid'",
+            "fa_icon": "fas fa-dna"
+        },
+        "samplesheet": {
+            "type": "string",
+            "format": "file-path",
+            "default": "./samplesheet.csv",
+            "description": "Path to CSV file containing sample information and read paths",
+            "help_text": "Format: sample_id,R1,R2,LReads. Fill columns based on data_type.",
+            "fa_icon": "fas fa-file-csv"
+        },
+        "outdir": {
+            "type": "string",
+            "format": "directory-path",
+            "default": "./results",
+            "description": "Output directory for all results",
+            "fa_icon": "fas fa-folder-open"
+        },
+        "longread_type": {
+            "enum": [
+                "pacbio",
+                "nanopore",
+                null
+            ],
+            "default": null,
+            "description": "Platform of long reads for hybrid assemblies",
+            "fa_icon": "fas fa-dna"
+        },
+        "longread_format": {
+            "enum": [
+                "bam",
+                "fastq",
+                null
+            ],
+            "default": null,
+            "description": "File format of long reads (PacBio, Nanopore, Hybrid)",
+            "fa_icon": "fas fa-file"
+        },
+        "illumina_trimmer": {
+            "type": "string",
+            "enum": [
+                "fastp",
+                "trimmomatic",
+                "trimgalore"
+            ],
+            "default": "fastp",
+            "description": "Tool to use for trimming Illumina reads"
+        },
+        "illumina_assembler": {
+            "type": "string",
+            "enum": [
+                "megahit",
+                "metaspades"
+            ],
+            "default": "megahit",
+            "description": "Assembler to use for Illumina short-read data"
+        },
+        "pacbio_assembler": {
+            "type": "string",
+            "enum": [
+                "hifiasm",
+                "flye"
+            ],
+            "default": "hifiasm",
+            "description": "Assembler to use for PacBio long-read data"
+        },
+        "flye_mode": {
+            "enum": [
+                "nano-raw",
+                "nano-corr",
+                "nano-hq",
+                "pacbio-raw",
+                "pacbio-corr",
+                "pacbio-hifi",
+                null
+            ],
+            "default": null,
+            "description": "Flye assembly mode (REQUIRED when using Flye)"
+        },
+        "reorientation_tool": {
+            "type": "string",
+            "enum": [
+                "dnaapler",
+                "circlator"
+            ],
+            "default": "dnaapler",
+            "description": "Tool for contig reorientation"
+        },
+        "skip_qc": {
+            "type": "boolean",
+            "default": false,
+            "description": "Skip QC steps (FastQC/NanoPlot)"
+        },
+        "skip_trimming": {
+            "type": "boolean",
+            "default": false,
+            "description": "Skip trimming for Illumina reads"
+        },
+        "skip_polish": {
+            "type": "boolean",
+            "default": false,
+            "description": "Skip polishing step"
+        },
+        "skip_reorientation": {
+            "type": "boolean",
+            "default": false,
+            "description": "Skip contig reorientation"
+        },
+        "skip_busco": {
+            "type": "boolean",
+            "default": false,
+            "description": "Skip BUSCO assessment"
+        },
+        "trimgalore_quality": {
+            "type": "integer",
+            "default": 20,
+            "minimum": 0,
+            "maximum": 40,
+            "description": "Phred quality score threshold for Trim Galore"
+        },
+        "trimgalore_stringency": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Overlap with adapter sequence required to trim"
+        },
+        "metaspades_k": {
+            "type": "string",
+            "default": "auto",
+            "description": "K-mer sizes for metaSPAdes assembly"
+        },
+        "unicycler_mode": {
+            "type": "string",
+            "enum": [
+                "conservative",
+                "normal",
+                "bold"
+            ],
+            "default": "normal",
+            "description": "Unicycler assembly mode"
+        },
+        "unicycler_min_fasta_length": {
+            "type": "integer",
+            "default": 100,
+            "minimum": 1,
+            "description": "Minimum contig length for Unicycler"
+        },
+        "circlator_min_id": {
+            "type": "integer",
+            "default": 70,
+            "minimum": 50,
+            "maximum": 100,
+            "description": "Minimum percent identity for circularization"
+        },
+        "busco_mode": {
+            "type": "string",
+            "enum": [
+                "genome",
+                "proteins",
+                "transcriptome"
+            ],
+            "default": "genome",
+            "description": "BUSCO assessment mode"
+        },
+        "busco_lineage": {
+            "default": null,
+            "description": "BUSCO lineage database"
+        },
+        "hifiasm_k": {
+            "type": "integer",
+            "default": 51,
+            "minimum": 1,
+            "maximum": 63,
+            "description": "K-mer length for hifiasm"
+        },
+        "hifiasm_a": {
+            "type": "integer",
+            "default": 4,
+            "minimum": 1,
+            "description": "Number of assembly cleaning rounds for hifiasm"
+        },
+        "fastp_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for fastp"
+        },
+        "trimgalore_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for Trim Galore"
+        },
+        "trimmomatic_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for Trimmomatic"
+        },
+        "spades_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for metaSPAdes"
+        },
+        "megahit_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for MEGAHIT"
+        },
+        "fastqc_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for FastQC"
+        },
+        "nanoplot_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for NanoPlot"
+        },
+        "hifiasm_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for hifiasm"
+        },
+        "flye_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for Flye"
+        },
+        "busco_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for BUSCO"
+        },
+        "circlator_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for Circlator"
+        },
+        "dnaapler_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for dnaapler"
+        },
+        "unicycler_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for unicycler"
+        },
+        "filtlong_opts": {
+            "type": "string",
+            "default": "",
+            "description": "Additional options for Filtlong"
+        }
+    }
+}

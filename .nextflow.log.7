@@ -1,0 +1,184 @@
+Jan-19 21:36:03.977 [main] DEBUG nextflow.cli.Launcher - $> nextflow run main.nf --data_type nanopore --samplesheet nanopore.csv --flye_mode nano-hq --longread_format fastq -profile cluster -resume --outdir nanopore_results
+Jan-19 21:36:04.191 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 23.10.0
+Jan-19 21:36:04.223 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/home/qjia/.nextflow/plugins; core-plugins: nf-amazon@2.1.4,nf-azure@1.3.2,nf-cloudcache@0.3.0,nf-codecommit@0.1.5,nf-console@1.0.6,nf-ga4gh@1.1.0,nf-google@1.8.3,nf-tower@1.6.3,nf-wave@1.0.0
+Jan-19 21:36:04.238 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Jan-19 21:36:04.240 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Jan-19 21:36:04.244 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Jan-19 21:36:04.259 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Jan-19 21:36:04.284 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/nextflow.config
+Jan-19 21:36:04.286 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/nextflow.config
+Jan-19 21:36:04.322 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `cluster`
+Jan-19 21:36:05.743 [main] DEBUG nextflow.config.ConfigBuilder - Available config profiles: [standard, slurm, cluster, debug, test]
+Jan-19 21:36:05.799 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
+Jan-19 21:36:05.837 [main] INFO  nextflow.cli.CmdRun - Launching `main.nf` [magical_planck] DSL2 - revision: 3dac202088
+Jan-19 21:36:05.838 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins declared=[nf-schema@2.3.0]
+Jan-19 21:36:05.840 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Jan-19 21:36:05.841 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[nf-schema@2.3.0]
+Jan-19 21:36:05.841 [main] DEBUG nextflow.plugin.PluginUpdater - Installing plugin nf-schema version: 2.3.0
+Jan-19 21:36:05.937 [main] INFO  org.pf4j.AbstractPluginManager - Plugin 'nf-schema@2.3.0' resolved
+Jan-19 21:36:05.938 [main] INFO  org.pf4j.AbstractPluginManager - Start plugin 'nf-schema@2.3.0'
+Jan-19 21:36:06.486 [main] DEBUG nextflow.plugin.BasePlugin - Plugin started nf-schema@2.3.0
+Jan-19 21:36:06.515 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /home/qjia/.nextflow/secrets/store.json
+Jan-19 21:36:06.519 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@2f7efd0b] - activable => nextflow.secret.LocalSecretsProvider@2f7efd0b
+Jan-19 21:36:06.637 [main] DEBUG nextflow.Session - Session UUID: dfbeb881-8aa7-4125-8dd7-2db682a7bcc0
+Jan-19 21:36:06.637 [main] DEBUG nextflow.Session - Run name: magical_planck
+Jan-19 21:36:06.638 [main] DEBUG nextflow.Session - Executor pool size: 64
+Jan-19 21:36:06.648 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Jan-19 21:36:06.655 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=192; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+Jan-19 21:36:06.710 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 23.10.0 build 5889
+  Created: 15-10-2023 15:07 UTC (10:07 CDT)
+  System: Linux 4.18.0-553.42.1.el8_10.x86_64
+  Runtime: Groovy 3.0.19 on OpenJDK 64-Bit Server VM 20.0.2+9-78
+  Encoding: UTF-8 (UTF-8)
+  Process: 4008742@splprhpc08 [10.220.16.8]
+  CPUs: 64 - Mem: 251.1 GB (209 GB) - Swap: 16 GB (13.4 GB)
+Jan-19 21:36:07.123 [main] DEBUG nextflow.Session - Work-dir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work [gpfs]
+Jan-19 21:36:07.124 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/bin
+Jan-19 21:36:07.144 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Jan-19 21:36:07.159 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Jan-19 21:36:07.190 [main] DEBUG nextflow.Session - Observer factory: ValidationObserverFactory
+Jan-19 21:36:07.263 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Jan-19 21:36:07.278 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 65; maxThreads: 1000
+Jan-19 21:36:07.717 [main] DEBUG nextflow.Session - Session start
+Jan-19 21:36:07.723 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow started -- trace file: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/nanopore_results/pipeline_info/execution_trace.txt
+Jan-19 21:36:08.577 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Jan-19 21:36:08.596 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [validateParameters:validateParameters, paramsSummaryLog:paramsSummaryLog, paramsHelp:paramsHelp, samplesheetToList:samplesheetToList]; plugin Id: nf-schema
+Jan-19 21:36:13.527 [main] DEBUG n.validation.ValidationExtension - Starting parameters validation
+Jan-19 21:36:13.843 [main] DEBUG n.validation.ValidationExtension - Finishing parameters validation
+Jan-19 21:36:13.857 [main] INFO  nextflow.Nextflow - [1mOther parameters[0m
+  [0;34mdata_type      : [0;32mnanopore[0m
+  [0;34msamplesheet    : [0;32mnanopore.csv[0m
+  [0;34moutdir         : [0;32mnanopore_results[0m
+  [0;34mlongread_format: [0;32mfastq[0m
+  [0;34mflye_mode      : [0;32mnano-hq[0m
+
+[1mCore Nextflow options[0m
+  [0;34mrunName        : [0;32mmagical_planck[0m
+  [0;34mcontainerEngine: [0;32msingularity[0m
+  [0;34mcontainer      : [0;32msingularity_image/assembly_pipe.sif[0m
+  [0;34mlaunchDir      : [0;32m/research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm[0m
+  [0;34mworkDir        : [0;32m/research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work[0m
+  [0;34mprojectDir     : [0;32m/research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm[0m
+  [0;34muserName       : [0;32mqjia[0m
+  [0;34mprofile        : [0;32mcluster[0m
+  [0;34mconfigFiles    : [0;32m/research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/nextflow.config[0m
+
+!! Only displaying parameters that differ from the pipeline defaults !!
+-[2m----------------------------------------------------[0m-
+Jan-19 21:36:14.265 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:io_limited` matches labels `io_limited` for process with name CAT_LONGREAD
+Jan-19 21:36:14.272 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: lsf
+Jan-19 21:36:14.272 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'lsf'
+Jan-19 21:36:14.283 [main] DEBUG nextflow.executor.Executor - [warm up] executor > lsf
+Jan-19 21:36:14.291 [main] DEBUG n.processor.TaskPollingMonitor - Creating task monitor for executor 'lsf' > capacity: 100; pollInterval: 5s; dumpInterval: 5m 
+Jan-19 21:36:14.292 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: lsf)
+Jan-19 21:36:14.294 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'lsf' > queue-stat-interval: 1m
+Jan-19 21:36:14.298 [main] DEBUG nextflow.executor.LsfExecutor - [LSF] Detected lsf.conf LSF_UNIT_FOR_LIMITS=MB
+Jan-19 21:36:14.298 [main] DEBUG nextflow.executor.LsfExecutor - [LSF] Detected lsf.conf LSB_JOB_MEMLIMIT=Y (true)
+Jan-19 21:36:14.368 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: lsf
+Jan-19 21:36:14.368 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'lsf'
+Jan-19 21:36:14.385 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:io_limited` matches labels `io_limited` for process with name NanoporeWorkflow:NANOPLOT
+Jan-19 21:36:14.387 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: lsf
+Jan-19 21:36:14.387 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'lsf'
+Jan-19 21:36:14.398 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:mem_veryhigh` matches labels `mem_veryhigh` for process with name NanoporeWorkflow:FLYE
+Jan-19 21:36:14.399 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: lsf
+Jan-19 21:36:14.399 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'lsf'
+Jan-19 21:36:14.406 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:io_net` matches labels `io_net` for process with name NanoporeWorkflow:DNAAPLER
+Jan-19 21:36:14.407 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: lsf
+Jan-19 21:36:14.407 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'lsf'
+Jan-19 21:36:14.413 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withLabel:io_net` matches labels `io_net` for process with name NanoporeWorkflow:BUSCO
+Jan-19 21:36:14.414 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: lsf
+Jan-19 21:36:14.415 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'lsf'
+Jan-19 21:36:14.435 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: lsf
+Jan-19 21:36:14.436 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'lsf'
+Jan-19 21:36:14.439 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: FASTQC, MEGAHIT, BUSCO, CAT_LONGREAD, TRIMGALORE, DNAAPLER, MULTIQC, CIRCLATOR, FASTP, TRIMMOMATIC, GET_SOFTWARE_VERSIONS, FLYE, NanoporeWorkflow:NANOPLOT, BAM2FQ, HIFIASM, NanoporeWorkflow:DNAAPLER, CAT_FASTQ, METASPADES, NanoporeWorkflow:BUSCO, NANOPLOT, NanoporeWorkflow:FLYE, UNICYCLER_HYBRID
+Jan-19 21:36:14.443 [main] DEBUG nextflow.Session - Igniting dataflow network (10)
+Jan-19 21:36:14.444 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > CAT_LONGREAD
+Jan-19 21:36:14.445 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > GET_SOFTWARE_VERSIONS
+Jan-19 21:36:14.446 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NanoporeWorkflow:NANOPLOT
+Jan-19 21:36:14.446 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NanoporeWorkflow:FLYE
+Jan-19 21:36:14.447 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NanoporeWorkflow:DNAAPLER
+Jan-19 21:36:14.448 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NanoporeWorkflow:BUSCO
+Jan-19 21:36:14.448 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MULTIQC
+Jan-19 21:36:14.449 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Script_2a8a71d7a263e7f2: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/hybrid_workflow.nf
+  Script_edfce8e9435eebe4: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/illumina_workflow.nf
+  Script_8135d7f105ea5577: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./utils/CAT_FASTQ.nf
+  Script_09d2b74a04d85ab6: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./utils/help.nf
+  Script_61c5fa7d6e37a2c2: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/pacbio_workflow.nf
+  Script_9a7fc04fad41ab65: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./utils/CAT_LONGREAD.nf
+  Script_f15bc2b2e6c04b90: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/qc/fastqc.nf
+  Script_e7471c19f6e63f63: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/assembly/hifiasm.nf
+  Script_785ec79a21a284fb: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/main.nf
+  Script_89a5edb0b5a394c9: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/assembly/unicycler_hybrid.nf
+  Script_e1e052d5a70b63b2: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/assembly/busco.nf
+  Script_e6d48573726c6e03: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./modules/qc/multiqc.nf
+  Script_1eba35500aba9f6c: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../utils/bam2fq.nf
+  Script_70f27c33145ee9e6: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/assembly/megahit.nf
+  Script_bf196ee6700d03dc: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/trim/trimmomatic.nf
+  Script_b539ec8841e3ace4: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./modules/report/software_versions.nf
+  Script_a1b9517296d467fd: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/assembly/circlator.nf
+  Script_d878ab8fb3a1f5c8: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/nanopore_workflow.nf
+  Script_41867652b4cf16fc: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/qc/nanoplot.nf
+  Script_ce7ec0f921183c9a: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/assembly/dnaapler.nf
+  Script_052c522fcd40a104: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/assembly/flye.nf
+  Script_3211b249ee08446a: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/trim/fastp.nf
+  Script_88e1df9953bd1a3e: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/trim/trimgalore.nf
+  Script_daf9bc6ca616cd44: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/./subworkflows/../modules/assembly/metaspades.nf
+Jan-19 21:36:14.449 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Jan-19 21:36:14.449 [main] DEBUG nextflow.Session - Session await
+Jan-19 21:36:14.787 [Actor Thread 42] INFO  nextflow.processor.TaskProcessor - [25/f31e35] Cached process > GET_SOFTWARE_VERSIONS (Software versions)
+Jan-19 21:36:14.817 [Actor Thread 42] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'PublishDir' minSize=10; maxSize=192; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+Jan-19 21:36:14.991 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process CAT_LONGREAD (concatenate longreads on myco) > jobId: 279744446; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/3d/efd5fe864d23e03f038079ca0e24de
+Jan-19 21:36:14.991 [Task submitter] INFO  nextflow.Session - [3d/efd5fe] Submitted process > CAT_LONGREAD (concatenate longreads on myco)
+Jan-19 21:36:15.286 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process CAT_LONGREAD (concatenate longreads on salmonella) > jobId: 279744447; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/57/d7181424426cd213b711a11d7e6a82
+Jan-19 21:36:15.286 [Task submitter] INFO  nextflow.Session - [57/d71814] Submitted process > CAT_LONGREAD (concatenate longreads on salmonella)
+Jan-19 21:36:24.305 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744446; id: 2; name: CAT_LONGREAD (concatenate longreads on myco); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/3d/efd5fe864d23e03f038079ca0e24de started: 1768880179304; exited: 2026-01-20T03:36:19.547506794Z; ]
+Jan-19 21:36:25.594 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process NanoporeWorkflow:NANOPLOT (myco) > jobId: 279744448; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/8d/db8545b78ebdb853ce49e3b51f94f9
+Jan-19 21:36:25.595 [Task submitter] INFO  nextflow.Session - [8d/db8545] Submitted process > NanoporeWorkflow:NANOPLOT (myco)
+Jan-19 21:36:25.794 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process NanoporeWorkflow:FLYE (FLYE on myco) > jobId: 279744449; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/f8/d5b16a12c9dba342d6455609f0867c
+Jan-19 21:36:25.794 [Task submitter] INFO  nextflow.Session - [f8/d5b16a] Submitted process > NanoporeWorkflow:FLYE (FLYE on myco)
+Jan-19 21:36:39.305 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744447; id: 3; name: CAT_LONGREAD (concatenate longreads on salmonella); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/57/d7181424426cd213b711a11d7e6a82 started: 1768880184357; exited: 2026-01-20T03:36:36.06046583Z; ]
+Jan-19 21:36:39.518 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process NanoporeWorkflow:NANOPLOT (salmonella) > jobId: 279744450; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/a3/92d3d3e3898a5d9ee8474f365a962d
+Jan-19 21:36:39.519 [Task submitter] INFO  nextflow.Session - [a3/92d3d3] Submitted process > NanoporeWorkflow:NANOPLOT (salmonella)
+Jan-19 21:36:39.666 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process NanoporeWorkflow:FLYE (FLYE on salmonella) > jobId: 279744451; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/d1/bafa6218adeadff8ebf31cc0081362
+Jan-19 21:36:39.666 [Task submitter] INFO  nextflow.Session - [d1/bafa62] Submitted process > NanoporeWorkflow:FLYE (FLYE on salmonella)
+Jan-19 21:38:09.313 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744450; id: 7; name: NanoporeWorkflow:NANOPLOT (salmonella); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/a3/92d3d3e3898a5d9ee8474f365a962d started: 1768880214307; exited: 2026-01-20T03:38:07.464019048Z; ]
+Jan-19 21:38:21.834 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744448; id: 5; name: NanoporeWorkflow:NANOPLOT (myco); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/8d/db8545b78ebdb853ce49e3b51f94f9 started: 1768880194309; exited: 2026-01-20T03:38:11.723689938Z; ]
+Jan-19 21:39:41.839 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744449; id: 4; name: NanoporeWorkflow:FLYE (FLYE on myco); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/f8/d5b16a12c9dba342d6455609f0867c started: 1768880189308; exited: 2026-01-20T03:39:41.35504621Z; ]
+Jan-19 21:39:42.547 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process NanoporeWorkflow:DNAAPLER (DNAAPLER on myco) > jobId: 279744452; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/84/f6318fa83a02b40c555796dbe9c264
+Jan-19 21:39:42.548 [Task submitter] INFO  nextflow.Session - [84/f6318f] Submitted process > NanoporeWorkflow:DNAAPLER (DNAAPLER on myco)
+Jan-19 21:41:01.842 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744451; id: 6; name: NanoporeWorkflow:FLYE (FLYE on salmonella); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/d1/bafa6218adeadff8ebf31cc0081362 started: 1768880386837; exited: 2026-01-20T03:40:59.345003608Z; ]
+Jan-19 21:41:02.808 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process NanoporeWorkflow:DNAAPLER (DNAAPLER on salmonella) > jobId: 279744453; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/88/1fbdc25e19a4a744148a05ca8142a5
+Jan-19 21:41:02.809 [Task submitter] INFO  nextflow.Session - [88/1fbdc2] Submitted process > NanoporeWorkflow:DNAAPLER (DNAAPLER on salmonella)
+Jan-19 21:41:21.839 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor lsf > tasks to be completed: 2 -- submitted tasks are shown below
+~> TaskHandler[jobId: 279744452; id: 8; name: NanoporeWorkflow:DNAAPLER (DNAAPLER on myco); status: RUNNING; exit: -; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/84/f6318fa83a02b40c555796dbe9c264 started: 1768880386843; exited: -; ]
+~> TaskHandler[jobId: 279744453; id: 9; name: NanoporeWorkflow:DNAAPLER (DNAAPLER on salmonella); status: RUNNING; exit: -; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/88/1fbdc25e19a4a744148a05ca8142a5 started: 1768880466841; exited: -; ]
+Jan-19 21:43:11.851 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744453; id: 9; name: NanoporeWorkflow:DNAAPLER (DNAAPLER on salmonella); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/88/1fbdc25e19a4a744148a05ca8142a5 started: 1768880466841; exited: 2026-01-20T03:43:10.728144088Z; ]
+Jan-19 21:43:22.274 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process NanoporeWorkflow:BUSCO (BUSCO on salmonella) > jobId: 279744454; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/24/da6a5829e3d02da780a64794cd94ad
+Jan-19 21:43:22.274 [Task submitter] INFO  nextflow.Session - [24/da6a58] Submitted process > NanoporeWorkflow:BUSCO (BUSCO on salmonella)
+Jan-19 21:44:21.836 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744452; id: 8; name: NanoporeWorkflow:DNAAPLER (DNAAPLER on myco); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/84/f6318fa83a02b40c555796dbe9c264 started: 1768880386843; exited: 2026-01-20T03:44:17.651856619Z; ]
+Jan-19 21:44:22.508 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process NanoporeWorkflow:BUSCO (BUSCO on myco) > jobId: 279744455; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/6b/1af6c92df03dba76d45a8fae87528f
+Jan-19 21:44:22.509 [Task submitter] INFO  nextflow.Session - [6b/1af6c9] Submitted process > NanoporeWorkflow:BUSCO (BUSCO on myco)
+Jan-19 21:46:01.838 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744454; id: 10; name: NanoporeWorkflow:BUSCO (BUSCO on salmonella); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/24/da6a5829e3d02da780a64794cd94ad started: 1768880611862; exited: 2026-01-20T03:46:00.935858946Z; ]
+Jan-19 21:46:02.215 [Task monitor] DEBUG nextflow.processor.TaskProcessor - Process NanoporeWorkflow:BUSCO > Skipping output binding because one or more optional files are missing: fileoutparam<1:1>
+Jan-19 21:46:26.834 [Task monitor] DEBUG n.processor.TaskPollingMonitor - !! executor lsf > tasks to be completed: 1 -- submitted tasks are shown below
+~> TaskHandler[jobId: 279744455; id: 11; name: NanoporeWorkflow:BUSCO (BUSCO on myco); status: RUNNING; exit: -; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/6b/1af6c92df03dba76d45a8fae87528f started: 1768880666834; exited: -; ]
+Jan-19 21:47:11.843 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744455; id: 11; name: NanoporeWorkflow:BUSCO (BUSCO on myco); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/6b/1af6c92df03dba76d45a8fae87528f started: 1768880666834; exited: 2026-01-20T03:47:10.573977731Z; ]
+Jan-19 21:47:11.900 [Task monitor] DEBUG nextflow.processor.TaskProcessor - Process NanoporeWorkflow:BUSCO > Skipping output binding because one or more optional files are missing: fileoutparam<1:1>
+Jan-19 21:47:12.348 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [LSF] submitted process MULTIQC (MultiQC aggregation) > jobId: 279744456; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/c1/d9b258953e81c1f133e820a7cbafad
+Jan-19 21:47:12.349 [Task submitter] INFO  nextflow.Session - [c1/d9b258] Submitted process > MULTIQC (MultiQC aggregation)
+Jan-19 21:47:26.844 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 279744456; id: 12; name: MULTIQC (MultiQC aggregation); status: COMPLETED; exit: 0; error: -; workDir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work/c1/d9b258953e81c1f133e820a7cbafad started: 1768880836842; exited: 2026-01-20T03:47:25.731719867Z; ]
+Jan-19 21:47:26.887 [main] DEBUG nextflow.Session - Session await > all processes finished
+Jan-19 21:47:26.889 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: lsf) - terminating tasks monitor poll loop
+Jan-19 21:47:26.890 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Jan-19 21:47:26.996 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'PublishDir' shutdown completed (hard=false)
+Jan-19 21:47:27.003 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=11; failedCount=0; ignoredCount=0; cachedCount=1; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=2h 43m 33s; failedDuration=0ms; cachedDuration=12.6s;loadCpus=0; loadMemory=0; peakRunning=3; peakCpus=38; peakMemory=80 GB; ]
+Jan-19 21:47:27.004 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow completed -- saving trace file
+Jan-19 21:47:27.006 [main] DEBUG nextflow.trace.ReportObserver - Workflow completed -- rendering execution report
+Jan-19 21:47:27.975 [main] DEBUG nextflow.trace.TimelineObserver - Workflow completed -- rendering execution timeline
+Jan-19 21:47:28.330 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Jan-19 21:47:28.331 [main] INFO  org.pf4j.AbstractPluginManager - Stop plugin 'nf-schema@2.3.0'
+Jan-19 21:47:28.331 [main] DEBUG nextflow.plugin.BasePlugin - Plugin stopped nf-schema
+Jan-19 21:47:28.461 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
+Jan-19 21:47:28.461 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

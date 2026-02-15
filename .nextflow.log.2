@@ -1,0 +1,178 @@
+Jan-20 16:56:39.537 [main] DEBUG nextflow.cli.Launcher - $> nextflow run main.nf --help
+Jan-20 16:56:39.778 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 23.10.0
+Jan-20 16:56:39.811 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/home/qjia/.nextflow/plugins; core-plugins: nf-amazon@2.1.4,nf-azure@1.3.2,nf-cloudcache@0.3.0,nf-codecommit@0.1.5,nf-console@1.0.6,nf-ga4gh@1.1.0,nf-google@1.8.3,nf-tower@1.6.3,nf-wave@1.0.0
+Jan-20 16:56:39.830 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Jan-20 16:56:39.832 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Jan-20 16:56:39.836 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Jan-20 16:56:39.852 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Jan-20 16:56:39.879 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/nextflow.config
+Jan-20 16:56:39.880 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/nextflow.config
+Jan-20 16:56:39.919 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Jan-20 16:56:41.533 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
+Jan-20 16:56:41.569 [main] INFO  nextflow.cli.CmdRun - Launching `main.nf` [tender_lalande] DSL2 - revision: 3dac202088
+Jan-20 16:56:41.570 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins declared=[nf-schema@2.3.0]
+Jan-20 16:56:41.570 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Jan-20 16:56:41.571 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[nf-schema@2.3.0]
+Jan-20 16:56:41.571 [main] DEBUG nextflow.plugin.PluginUpdater - Installing plugin nf-schema version: 2.3.0
+Jan-20 16:56:41.649 [main] INFO  org.pf4j.AbstractPluginManager - Plugin 'nf-schema@2.3.0' resolved
+Jan-20 16:56:41.650 [main] INFO  org.pf4j.AbstractPluginManager - Start plugin 'nf-schema@2.3.0'
+Jan-20 16:56:41.731 [main] DEBUG nextflow.plugin.BasePlugin - Plugin started nf-schema@2.3.0
+Jan-20 16:56:41.775 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /home/qjia/.nextflow/secrets/store.json
+Jan-20 16:56:41.780 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@59fbb34] - activable => nextflow.secret.LocalSecretsProvider@59fbb34
+Jan-20 16:56:41.914 [main] DEBUG nextflow.Session - Session UUID: 45e612d4-63ea-4d58-a127-5ac25f503440
+Jan-20 16:56:41.914 [main] DEBUG nextflow.Session - Run name: tender_lalande
+Jan-20 16:56:41.915 [main] DEBUG nextflow.Session - Executor pool size: 32
+Jan-20 16:56:41.926 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Jan-20 16:56:41.932 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=96; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+Jan-20 16:56:42.010 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 23.10.0 build 5889
+  Created: 15-10-2023 15:07 UTC (10:07 CDT)
+  System: Linux 4.18.0-553.42.1.el8_10.x86_64
+  Runtime: Groovy 3.0.19 on OpenJDK 64-Bit Server VM 20.0.2+9-78
+  Encoding: UTF-8 (UTF-8)
+  Process: 3144589@splprhpc11 [10.220.19.198]
+  CPUs: 32 - Mem: 995.3 GB (668.2 GB) - Swap: 16 GB (13.9 GB)
+Jan-20 16:56:42.093 [main] DEBUG nextflow.Session - Work-dir: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/work [gpfs]
+Jan-20 16:56:42.094 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/bin
+Jan-20 16:56:42.119 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Jan-20 16:56:42.141 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Jan-20 16:56:42.186 [main] DEBUG nextflow.Session - Observer factory: ValidationObserverFactory
+Jan-20 16:56:42.248 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Jan-20 16:56:42.267 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 33; maxThreads: 1000
+Jan-20 16:56:42.405 [main] DEBUG nextflow.Session - Session start
+Jan-20 16:56:42.412 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow started -- trace file: /research/rgs01/home/clusterHome/qjia/projects/pipelines/v2/antigravity_version/protasm/results/pipeline_info/execution_trace.txt
+Jan-20 16:56:43.339 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Jan-20 16:56:43.360 [main] DEBUG nextflow.script.IncludeDef - Loading included plugin extensions with names: [validateParameters:validateParameters, paramsSummaryLog:paramsSummaryLog, paramsHelp:paramsHelp, samplesheetToList:samplesheetToList]; plugin Id: nf-schema
+Jan-20 16:56:47.914 [main] INFO  nextflow.Nextflow - 
+    [36m[1m
+    ██████╗ ██████╗  ██████╗ ██╗  ██╗ █████╗ ███████╗███╗   ███╗
+    ██╔══██╗██╔══██╗██╔═══██╗██║ ██╔╝██╔══██╗██╔════╝████╗ ████║
+    ██████╔╝██████╔╝██║   ██║█████╔╝ ███████║███████╗██╔████╔██║
+    ██╔═══╝ ██╔══██╗██║   ██║██╔═██╗ ██╔══██║╚════██║██║╚██╔╝██║
+    ██║     ██║  ██║╚██████╔╝██║  ██╗██║  ██║███████║██║ ╚═╝ ██║
+    ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝
+    [0m
+    [32mProkASM — Prokaryotic Genome Assembly[0m
+    [32mIllumina • PacBio • Nanopore • Hybrid[0m
+    
+Jan-20 16:56:47.917 [main] INFO  nextflow.Nextflow - 
+    DESCRIPTION:
+    Nextflow DSL2 pipeline for de novo genome assembly from Illumina, PacBio, Nanopore, and hybrid data.
+    Supports short-read, long-read, and hybrid approaches (primarily Illumina + Nanopore).
+    Includes QC, trimming, assembly, circularization, and quality assessment (BUSCO).
+    
+    Supports multiple lanes/files per sample for all data types.
+    
+    USAGE:
+    nextflow run main.nf --data_type <TYPE> --samplesheet <FILE> --outdir <path> [OPTIONS]
+    
+    MANDATORY ARGUMENTS:
+        --outdir <path>
+            Output directory (default: ./results)
+
+        --data_type <illumina|pacbio|nanopore|hybrid>
+            Type of sequencing data to process
+            illumina: Short read Illumina data
+            pacbio:   PacBio long read data
+            nanopore: Nanopore long read data
+            hybrid:   Combined short and long reads (requires --longread_type and --longread_format)
+            
+        --samplesheet <file>
+            CSV file with sample information (columns: sample_id,R1,R2,LReads)
+            Format by data type:
+            illumina: Fill R1 and R2, leave LReads empty
+            pacbio:   Fill LReads (or FASTQ file), leave R1 and R2 empty
+            nanopore: Fill LReads (or FASTQ file), leave R1 and R2 empty
+            hybrid:   Fill R1, R2, and LReads (longreads as BAM or FASTQ)
+            
+            Multi-lane support: List same sample_id multiple times with different files
+
+    CONDITIONAL ARGUMENTS (data_type specific):
+        --longread_type <pacbio|nanopore>
+            Required when --data_type hybrid
+            Specifies long read platform for hybrid assemblies
+        
+        --longread_format <bam|fastq>
+            Required for PacBio, Nanopore, and Hybrid workflows.
+            Specifies long read file format.
+            bam:   Long reads in BAM format (will be converted to FASTQ)
+            fastq: Long reads in FASTQ/FASTQ.GZ format
+        
+        --flye_mode <mode>
+            Required when --data_type pacbio, nanopore
+            Assembly mode when using Flye assembler
+            Options: nano-raw, nano-corr, nano-hq, pacbio-raw, pacbio-corr, pacbio-hifi
+    
+    TOOL SELECTION:
+        --illumina_trimmer <fastp|trimmomatic|trimgalore>
+            Trimming tool for Illumina data (default: fastp)
+            
+        --illumina_assembler <megahit|metaspades>
+            Assembly tool for Illumina data (default: megahit)
+            
+        --pacbio_assembler <hifiasm|flye>
+            Assembly tool for PacBio data (default: hifiasm)
+        
+        --reorientation_tool <circlator|dnaapler>
+            Tool for contig reorientation (default: dnaapler)
+    
+    SKIP OPTIONS:
+        --skip_qc                Skip QC steps (FastQC/NanoPlot)
+        --skip_trimming          Skip trimming for Illumina reads
+        --skip_polish            Skip polishing step
+        --skip_reorientation     Skip contig reorientation
+        --skip_busco             Skip BUSCO assessment
+    
+    TOOL-SPECIFIC OPTIONS:
+        --hifiasm_k <kmer_size>
+            K-mer size for Hifiasm assembler (default: 21)
+        --hifiasm_a <number>
+            Minimum overlap length for Hifiasm assembler (default: 10)
+        --unicycler_mode <mode>
+            Assembly mode for Unicycler (default: normal)
+        --unicycler_min_fasta_length <length>
+            Minimum contig length for Unicycler output (default: 100)
+        --metaspades_k <kmer_sizes>
+            K-mer sizes for MetaSPAdes assembler (default: auto)
+        --circlator_min_id <percentage>
+            Minimum identity percentage for Circlator circularization (default: 90)
+        --trimgalore_quality <value>
+            Quality threshold for TrimGalore (default: 20)
+        --trimgalore_stringency <value>
+            Stringency for adapter removal in TrimGalore (default: 1)
+        --busco_mode <mode>
+            Mode for BUSCO analysis (default: genome)
+    
+    OPTIONAL PARAMETERS AND ADVANCED USAGE:
+    Each tool supports custom parameters via --{tool}_opts flags:
+        --trimmomatic_opts ""     Example: "ILLUMINACLIP:adapters.fa:2:30:10"
+        --fastp_opts ""           Example: "--cut_front --cut_tail -l 50"
+        --trimgalore_opts ""      Example: "--paired --illumina"
+        --fastqc_opts ""          Example: "--nogroup"
+        --megahit_opts ""         Example: "--min-contig-len 500"
+        --spades_opts ""          Example: "--careful -k 21,33,55"
+        --nanoplot_opts ""        Example: "--plots dot --legacy"
+        --hifiasm_opts ""         Example: "-l 3"
+        --flye_opts ""            Example: "--genome-size 5m --asm-coverage 50"
+        --circlator_opts ""       Example: "--merge_min_id 85"
+        --dnaapler_opts ""        Example: "--evalue 1e-10"
+        --busco_opts ""           Example: "--offline"
+        --unicycler_opts ""       Example: "--no_correct"
+    For a full list of options for each tool, refer to the respective tool documentation.
+
+    EXAMPLES:
+    # Illumina assembly with MEGAHIT
+    nextflow run main.nf --data_type illumina --samplesheet illumina.csv -profile cluster -resume --outdir illumina_results
+
+
+    # PacBio HiFi assembly (BAM input)
+    nextflow run main.nf --data_type pacbio --samplesheet pacbio.csv --flye_mode pacbio-hifi --longread_format fastq -profile cluster -resume --outdir pacbio_results
+
+    # Nanopore assembly with high-quality reads
+    nextflow run main.nf --data_type nanopore --samplesheet nanopore.csv --flye_mode nano-hq --longread_format fastq -profile cluster -resume --outdir nanopore_results
+    
+    # Hybrid assembly (Illumina + Nanopore)
+    nextflow run main.nf --data_type hybrid --samplesheet hybrid.csv --longread_type nanopore --longread_format fastq -profile cluster -resume --outdir hybrid_results
+
+    For more information, see documentation or run with --help
+    

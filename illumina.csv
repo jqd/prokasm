@@ -1,0 +1,2 @@
+sample_id,R1,R2,LReads
+23_vir,./test_dt/23_viruses_trimmed_merged_50k_R1.fq,./test_dt/23_viruses_trimmed_merged_50k_R2.fq
