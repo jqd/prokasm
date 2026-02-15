@@ -1,8 +1,0 @@
-results/
-work/
-hybrid_results/
-nanopore_results/
-pacbio_results/
-test_data/*
-!test_data/.gitkeep
-
