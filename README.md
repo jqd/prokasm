@@ -256,7 +256,3 @@ If you use this pipeline, please cite:
 ## Author
 
 **Qidong Jia**
-
-## License
-
-[Add license information]
