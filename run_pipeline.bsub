@@ -1,0 +1,11 @@
+#!/bin/bash
+#BSUB -P nextflow
+#BSUB -q standard
+#BSUB -J nextflow
+#BSUB -o nextflow.o
+#BSUB -e nextflow.e
+#BSUB -W 168:00
+#BSUB -M 4GB
+module load nextflow/23.10.0
+
+nextflow run main.nf --data_type illumina --illumina_assembler spades --samplesheet illumina.csv -profile cluster -resume --outdir illumina_results

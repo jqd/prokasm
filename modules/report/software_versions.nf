@@ -10,8 +10,8 @@ process GET_SOFTWARE_VERSIONS {
     script:
     """
     echo "Pipeline: ProkASM v${workflow.manifest.version}" > software_versions.txt
-    nextflow -v 2>&1 | grep "nextflow" >> software_versions.txt
-    echo "" >> software_versions.txt
+    #nextflow -v 2>&1 | grep "nextflow" >> software_versions.txt
+    #echo "" >> software_versions.txt
     echo "Software versions:" >> software_versions.txt
     
     # QC tools
